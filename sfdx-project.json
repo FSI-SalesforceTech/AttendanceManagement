@@ -1,0 +1,17 @@
+{
+    "packageDirectories": [
+        {
+            "path": "force-app",
+            "default": true,
+            "package": "AttendanceManagement",
+            "versionName": "ver 0.9",
+            "versionNumber": "0.9.0.NEXT"
+        }
+    ],
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "47.0",
+    "packageAliases": {
+        "AttendanceManagement": "0Ho10000000PAt1CAG"
+    }
+}

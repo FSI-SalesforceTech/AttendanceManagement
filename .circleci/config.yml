@@ -1,0 +1,72 @@
+version: 2
+
+general:
+# Uncomment the following to specify only a specific branch
+#   branches:
+#     only:
+#       - dev # specific branch
+#       - /dev-.*/ # or regexes
+
+jobs:
+  build:
+    machine: true
+    working_directory: ~/ci_app
+    environment:
+      - DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-amd64.tar.xz
+      - PACKAGENAME: "AttendanceManagement"
+    steps:
+      - checkout
+      - run:
+          name: Download CLI
+          command: |
+            mkdir sfdx
+            wget -qO- $DX_CLI_URL | tar xJ -C sfdx --strip-components 1
+      - run:
+          name: Install CLI
+          command: |
+            ./sfdx/install
+            sfdx
+            mkdir tmp
+      - run:
+          name: Create hub key
+          command: |
+            echo 'make hub key'
+            openssl enc -nosalt -aes-256-cbc -d -in assets/server.key.enc -out server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
+      - run:
+          name: Setup Org
+          command: |
+            echo 'auth org & push source'
+            sfdx force:auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile assets/server.key --username $HUB_SFDC_USER --setdefaultdevhubusername -a bunai-crm
+            sfdx force:auth:jwt:grant --clientid $SANDBOX_CONSUMER_KEY --jwtkeyfile assets/server.key --username $SANDBOX_SFDC_USER -a sandbox --instanceurl https://test.salesforce.com
+            sfdx force --help
+            sfdx force:org:create -s -f ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 3
+            sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
+            sfdx force:user:permset:assign -n AttendanceManagement -u circle_build_$CIRCLE_BUILD_NUM
+
+      - run:
+          name: Create Package
+          command: |
+            PACKAGEVERSION="$(sfdx force:package:version:create --package $PACKAGENAME --installationkeybypass --wait 10 --json --targetdevhubusername bunai-crm | jq '.result.SubscriberPackageVersionId' | tr -d '"')"
+            echo 'PackageVersionId - ' ${PACKAGEVERSION}
+            # Store PackageVersionId to be used in future step
+            echo $PACKAGEVERSION > /tmp/packageversion.txt
+            # Wait for package replication
+            echo 'Waiting for 5 minutes for package replication'
+            sleep 5m
+      - run:
+          name: Install package
+          command: |
+            #Get PackageVersionId
+            PackageVersionId=$(</tmp/packageversion.txt)
+            
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              sfdx force:package:version:promote -n -p $PackageVersionId -v bunai-crm
+              sfdx force:package:install --package $PackageVersionId --wait 10 --targetusername bunai-crm
+            else
+              #Install package in scratch org
+              sfdx force:package:install --package $PackageVersionId --wait 10 --targetusername sandbox
+            fi
+      - run:
+          name: Delete Useless Scratch Org
+          command: |
+            sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p
