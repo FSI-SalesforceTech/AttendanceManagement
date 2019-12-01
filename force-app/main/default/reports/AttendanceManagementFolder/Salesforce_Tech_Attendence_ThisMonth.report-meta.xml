@@ -82,9 +82,9 @@
         <field>STATUS</field>
     </columns>
     <customDetailFormulas>
-        <calculatedFormula>DURATIONHOURS - 7.5</calculatedFormula>
+        <calculatedFormula>DURATIONHOURS - 7.5 - 1</calculatedFormula>
         <dataType>Double</dataType>
-        <description>標準時間（7.5H）との差額の時間です。</description>
+        <description>標準時間（7.5H）との差額の時間です。休憩時間は１時間で切ってるので、目安だと思ってください。</description>
         <developerName>CDF1</developerName>
         <label>差額時間</label>
         <scale>1</scale>

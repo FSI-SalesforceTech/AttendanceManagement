@@ -35,4 +35,9 @@ public with sharing class AttendanceManagementController {
     public static List<Object> getAttendanceReports() {
         return [SELECT Id, DeveloperName, Name FROM Report WHERE DeveloperName IN('MyAttendence_ThisMonth', 'Salesforce_Tech_Attendence_ThisMonth', 'MyAttendence_LastMonth', 'Salesforce_Tech_Attendence_LastMonth')];
     }
+
+    @AuraEnabled(cacheable=true)
+    public static String getBaseURL(){
+        return URL.getSalesforceBaseUrl().getHost() + '/';
+    }
 }

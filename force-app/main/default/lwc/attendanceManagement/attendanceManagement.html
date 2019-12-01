@@ -111,15 +111,28 @@
                 </center>
             </lightning-layout-item>
         </lightning-layout>
-        <div class="slds-box slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
-            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
-                <lightning-accordion-section name="A" label="今月">
-                    
-                </lightning-accordion-section>
-                <lightning-accordion-section name="B" label="先月">
-                    
-                </lightning-accordion-section>
-            </lightning-accordion>
+        <div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+            <div class="slds-box slds-p-around_none slds-p-around_medium slds-text-align_center">
+                <lightning-formatted-url value={calendarURL} label="カレンダーを表示"></lightning-formatted-url>
+            </div>
+            <div class="slds-p-around_none">
+                <lightning-accordion allow-multiple-sections-open active-section-name={activeSections} title="レポートで確認">
+                    <lightning-accordion-section name="A" label="今月">
+                        <template if:true={thismonth}>
+                            <template for:each={thismonth} for:item="i">
+                                <li key={i.Id}><lightning-formatted-url value={i.url} label={i.Name} ></lightning-formatted-url></li>
+                            </template>
+                        </template>
+                    </lightning-accordion-section>
+                    <lightning-accordion-section name="B" label="先月">
+                        <template if:true={lastmonth}>
+                            <template for:each={lastmonth} for:item="i">
+                                <p key={i.Id}><lightning-formatted-url value={i.url} label={i.Name} ></lightning-formatted-url></p>
+                            </template>
+                        </template>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
         </div>
     </lightning-card>
 </template>

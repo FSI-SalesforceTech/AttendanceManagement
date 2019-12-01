@@ -2,7 +2,10 @@ import { LightningElement, track, wire } from 'lwc';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import CreateEvent from'@salesforce/apex/AttendanceManagementController.CreateEvent';
 import SetEnddateTime from '@salesforce/apex/AttendanceManagementController.SetEnddateTime';
+import getAttendanceReports from '@salesforce/apex/AttendanceManagementController.getAttendanceReports';
+import getBaseURL from '@salesforce/apex/AttendanceManagementController.getBaseURL';
 import Id from '@salesforce/user/Id';
+import { getFieldDisplayValue } from 'lightning/uiRecordApi';
 
 const AM9 = "T09:00:00.000+0900";
 const AM10 = "T10:00:00.000+0900";
@@ -10,7 +13,7 @@ const AM12 = "T12:00:00.000+0900";
 const PM1 = "T13:00:00.000+0900";
 const PM5 = "T17:30:00.000+0900";
 export default class AttendanceManagement extends LightningElement {
-    @track activeSections = ['A', 'B'];
+    @track activeSections = ['A'];
     @track isSelected = false;
     @track a = false;
     @track b = false;
@@ -18,11 +21,43 @@ export default class AttendanceManagement extends LightningElement {
     @track d = false;
     @track e = false;
 
-    @track input1value="T10:00:00.000+0900";
-    @track input2value = AM9;
-
+    @track thismonth = [];
+    @track lastmonth = [];
+    baseURL;
+    calendarURL;
     subject;
     userId = Id;
+
+    @wire(getBaseURL)
+    wiregetBaseURL({error, data}){
+        if(data) {
+            this.baseURL = JSON.stringify(data).replace(/"/g, '');
+            this.calendarURL = 'https://' + this.baseURL + 'lightning/o/Event/home';
+        }
+    }
+
+    @wire(getAttendanceReports)
+    wiregetAttendanceReports({ error, data }) {
+        if (data) {
+            let consData = JSON.parse(JSON.stringify(data));
+            consData.forEach(element => {
+                element['url'] = 'https://' + this.baseURL + element.Id;
+                if(element.DeveloperName.endsWith('ThisMonth')) {
+                    this.thismonth.push(element);
+                } else {
+                    this.lastmonth.push(element);
+                }
+            });
+        } else if (error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'エラー',
+                    message: error.body.message,
+                    variant: 'error',
+                }),
+            );
+        }
+    }
 
     get options() {
         return [
@@ -118,6 +153,7 @@ export default class AttendanceManagement extends LightningElement {
                             variant: 'success',
                         }),
                     );
+                    this.value = [];
                 })
                 .catch(error => {
                     this.dispatchEvent(
@@ -145,6 +181,7 @@ export default class AttendanceManagement extends LightningElement {
                                 variant: 'success',
                             }),
                         );
+                        this.value = [];
                     })
                     .catch(error => {
                         this.dispatchEvent(
