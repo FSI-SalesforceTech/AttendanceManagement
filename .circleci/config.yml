@@ -31,13 +31,13 @@ jobs:
           name: Create hub key
           command: |
             echo 'make hub key'
-            openssl enc -nosalt -aes-256-cbc -d -in server.key.enc -out server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
+            openssl enc -nosalt -aes-256-cbc -d -in ./server.key.enc -out server.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
       - run:
           name: Setup Org
           command: |
             echo 'auth org & push source'
-            sfdx force:auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile server.key --username $HUB_SFDC_USER --setdefaultdevhubusername -a bunai-crm
-            sfdx force:auth:jwt:grant --clientid $SANDBOX_CONSUMER_KEY --jwtkeyfile server.key --username $SANDBOX_SFDC_USER -a sandbox --instanceurl https://test.salesforce.com
+            sfdx force:auth:jwt:grant --clientid $HUB_CONSUMER_KEY --jwtkeyfile ./server.key --username $HUB_SFDC_USER --setdefaultdevhubusername -a bunai-crm
+            sfdx force:auth:jwt:grant --clientid $SANDBOX_CONSUMER_KEY --jwtkeyfile ./server.key --username $SANDBOX_SFDC_USER -a sandbox --instanceurl https://test.salesforce.com
             sfdx force --help
             sfdx force:org:create -s -f ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 3
             sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
