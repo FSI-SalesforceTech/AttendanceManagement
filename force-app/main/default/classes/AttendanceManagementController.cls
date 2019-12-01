@@ -30,4 +30,9 @@ public with sharing class AttendanceManagementController {
 
         update e;
     }
+
+    @AuraEnabled(cacheable=true)
+    public static List<Object> getAttendanceReports() {
+        return [SELECT Id, DeveloperName, Name FROM Report WHERE DeveloperName IN('MyAttendence_ThisMonth', 'Salesforce_Tech_Attendence_ThisMonth', 'MyAttendence_LastMonth', 'Salesforce_Tech_Attendence_LastMonth')];
+    }
 }
