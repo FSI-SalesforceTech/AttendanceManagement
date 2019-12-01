@@ -1,106 +1,138 @@
 <template>
     <lightning-card title="勤怠連絡" icon-name="utility:date_time">
-        <div class="slds-m-around_medium">
-            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
-                <lightning-accordion-section name="A" label="作業開始">
-                    <lightning-radio-group name="radioGroup"
-                            label="パターンを選択してください。"
-                            options={options}
-                            value={value}
-                            type="radio"
-                            required
-                            onchange={handleRadioChange}
-                    ></lightning-radio-group>
-                    <template if:true={a}>
-                        <lightning-input
-                            type="datetime"
-                            name="input1"
-                            label="開始時間"
-                            value={input1value}
-                            onchange={handleinput1change}
-                        ></lightning-input>
-                        <lightning-input
-                            type="datetime"
-                            name="input2"
-                            label="終了時間"
-                            value={input2value}
-                            onchange={handleinput2change}
-                        ></lightning-input>
-                    </template>
-                    <template if:true={b}>
-                        <lightning-input
-                            type="datetime"
-                            name="input3"
-                            label="出社時間"
-                            value={input3value}
-                            onchange={handleinput3change}
-                        ></lightning-input>
-                    </template>
-                    <template if:true={c}>
-                        <p><lightning-formatted-text value="在宅" ></lightning-formatted-text></p>
-                            <lightning-input
-                                type="datetime"
-                                name="input4"
-                                label="開始時間"
-                                value={input4value}
-                                onchange={handleinput4change}
-                            ></lightning-input>
-                            <lightning-input
-                                type="datetime"
-                                name="input5"
-                                label="終了時間"
-                                value={input5value}
-                                onchange={handleinput5change}
-                            ></lightning-input>
-                        <p><lightning-formatted-text value="出社" ></lightning-formatted-text></p>
-                            <lightning-input
-                                type="datetime"
-                                name="input6"
-                                label="開始時間"
-                                value={input6value}
-                                onchange={handleinput6change}
-                            ></lightning-input>
-                            <lightning-input
-                                type="datetime"
-                                name="input7"
-                                label="終了時間"
-                                value={input7value}
-                                onchange={handleinput7change}
-                            ></lightning-input>
-                    </template>
-                    <template if:true={d}>
-                        <lightning-input
-                            type="datetime"
-                            name="input8"
-                            label="開始時間"
-                            value={input8value}
-                            onchange={handleinput8change}
-                        ></lightning-input>
-                        <lightning-input
-                            type="datetime"
-                            name="input9"
-                            label="終了時間"
-                            value={input9value}
-                            onchange={handleinput9change}
-                        ></lightning-input>
-                    </template>
-                    <br>
+        <lightning-layout>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                    <lightning-formatted-text value="作業開始"></lightning-formatted-text>
+                </div>
+                <lightning-radio-group name="radioGroup"
+                        label="パターンを選択してください。"
+                        options={options}
+                        value={value}
+                        type="radio"
+                        required
+                        onchange={handleRadioChange}
+                ></lightning-radio-group>
+                <template if:true={a}>
+                    <lightning-input
+                        type="datetime"
+                        name="input1"
+                        label="開始時間"
+                        value={input1value}
+                        onchange={handleinput1change}
+                    ></lightning-input>
+                    <lightning-input
+                        type="datetime"
+                        name="input2"
+                        label="終了時間"
+                        value={input2value}
+                        onchange={handleinput2change}
+                    ></lightning-input>
+                </template>
+                <template if:true={b}>
+                    <lightning-input
+                        type="datetime"
+                        name="input3"
+                        label="出社時間"
+                        value={input3value}
+                        onchange={handleinput3change}
+                    ></lightning-input>
+                </template>
+                <template if:true={c}>
+                    <p><lightning-formatted-text value="在宅" ></lightning-formatted-text></p>
+                    <lightning-input
+                        type="datetime"
+                        name="input4"
+                        label="開始時間"
+                        value={input4value}
+                        onchange={handleinput4change}
+                    ></lightning-input>
+                    <lightning-input
+                        type="datetime"
+                        name="input5"
+                        label="終了時間"
+                        value={input5value}
+                        onchange={handleinput5change}
+                    ></lightning-input>
+                    <p><lightning-formatted-text value="出社" ></lightning-formatted-text></p>
+                    <lightning-input
+                        type="datetime"
+                        name="input6"
+                        label="開始時間"
+                        value={input6value}
+                        onchange={handleinput6change}
+                    ></lightning-input>
+                    <lightning-input
+                        type="datetime"
+                        name="input7"
+                        label="終了時間"
+                        value={input7value}
+                        onchange={handleinput7change}
+                    ></lightning-input>
+                </template>
+                <template if:true={d}>
+                    <lightning-input
+                        type="datetime"
+                        name="input8"
+                        label="開始時間"
+                        value={input8value}
+                        onchange={handleinput8change}
+                    ></lightning-input>
+                    <lightning-input
+                        type="datetime"
+                        name="input9"
+                        label="終了時間"
+                        value={input9value}
+                        onchange={handleinput9change}
+                    ></lightning-input>
+                </template>
+                <br>
+                <center>
                     <template if:true={isSelected}>
                         <lightning-button variant="brand" label="登録" title="Primary action" onclick={registEvent} class="slds-m-left_x-small"></lightning-button>
                     </template>
                     <template if:false={isSelected}>
                         <lightning-button variant="brand" label="登録" title="Primary action" disabled class="slds-m-left_x-small"></lightning-button>
                     </template>
-                </lightning-accordion-section>
-                <lightning-accordion-section name="B" label="作業終了">
+                </center>
+            </lightning-layout-item>
+            <lightning-layout-item flexibility="auto" padding="around-small">
+                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                    <lightning-formatted-text value="作業終了"></lightning-formatted-text>
+                </div>
+                <br>
+                <center>
                     <lightning-button
-                        label="作業終了"
+                        label="記録"
                         variant="brand"
                         title="今日の活動の終了日時を現在時刻に設定します。複数ある場合は、開始時間の最も遅い活動の終了時間にセットします。"
                         onclick={EndOfBusiness}
                     ></lightning-button>
-                </lightning-accordion-section>
-            </lightning-accordion>
+                </center>
+            </lightning-layout-item>
+        </lightning-layout>
+        <div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
+            <div class="slds-box slds-p-around_none slds-p-around_medium slds-text-align_center">
+                <lightning-formatted-url value={calendarURL} label="カレンダーを表示"></lightning-formatted-url>
+            </div>
+            <div class="slds-p-around_none">
+                <lightning-accordion allow-multiple-sections-open active-section-name={activeSections} title="レポートで確認">
+                    <lightning-accordion-section name="A" label="今月">
+                        <template if:true={thismonth}>
+                            <template for:each={thismonth} for:item="i">
+                                <li key={i.Id}><lightning-formatted-url value={i.url} label={i.Name} ></lightning-formatted-url></li>
+                            </template>
+                        </template>
+                    </lightning-accordion-section>
+                    <lightning-accordion-section name="B" label="先月">
+                        <template if:true={lastmonth}>
+                            <template for:each={lastmonth} for:item="i">
+                                <p key={i.Id}><lightning-formatted-url value={i.url} label={i.Name} ></lightning-formatted-url></p>
+                            </template>
+                        </template>
+                    </lightning-accordion-section>
+                </lightning-accordion>
+            </div>
         </div>
     </lightning-card>
 </template>
