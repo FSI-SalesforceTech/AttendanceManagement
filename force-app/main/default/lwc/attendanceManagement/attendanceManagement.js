@@ -8,7 +8,7 @@ import Id from '@salesforce/user/Id';
 import { getFieldDisplayValue } from 'lightning/uiRecordApi';
 
 const AM9 = "T09:00:00.000+0900";
-const AM10 = "T10:00:00.000+0900";
+const AM10 = "T01:00:00.000Z";
 const AM12 = "T12:00:00.000+0900";
 const PM1 = "T13:00:00.000+0900";
 const PM5 = "T17:30:00.000+0900";
@@ -80,7 +80,7 @@ export default class AttendanceManagement extends LightningElement {
         this.input3value = `${year}-${month}-${day}` + AM10;
 
         this.input4value = `${year}-${month}-${day}` + AM9;
-        this.input5value = `${year}-${month}-${day}` + AM12;
+        this.input5value = `${year}-${month}-${day}` + PM1;
         this.input6value = `${year}-${month}-${day}` + PM1;
         this.input7value = `${year}-${month}-${day}` + PM5;
 
@@ -134,9 +134,7 @@ export default class AttendanceManagement extends LightningElement {
                 end = String(this.input2value);
             }else if(this.b === true) {
                 start = String(this.input3value);
-                let edit = this.input3value.slice(11, 13);
-                let val = Number(edit) + 1;
-                end = this.input3value.slice(0, 11) + val + this.input3value.slice(-15);
+                end = undefined;
             }else if(this.d === true) {
                 start = String(this.input8value);
                 end = String(this.input9value);
