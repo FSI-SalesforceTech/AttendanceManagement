@@ -134,12 +134,7 @@ export default class AttendanceManagement extends LightningElement {
                 end = String(this.input2value);
             }else if(this.b === true) {
                 start = String(this.input3value);
-                let edit = this.input3value.slice(11, 13);
-                let val = '';
-                if(Number(edit) < 10) {
-                    val = ('0' + (Number(edit) + 1)).slice(0, 2);
-                }
-                end = this.input3value.slice(0, 11) + val + this.input3value.slice(-11);
+                end = undefined;
             }else if(this.d === true) {
                 start = String(this.input8value);
                 end = String(this.input9value);

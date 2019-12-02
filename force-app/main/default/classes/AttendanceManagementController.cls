@@ -1,9 +1,15 @@
 public with sharing class AttendanceManagementController {
     @AuraEnabled
-    public static void CreateEvent(Id OwnerId, String Subject, String StartDateTime, String EndDateTime) {
+    public static String CreateEvent(Id OwnerId, String Subject, String StartDateTime, String EndDateTime) {
         Event e = new Event();
         Datetime st = (DateTime)JSON.deserialize('"' + StartDateTime + '"', DateTime.class);
-        Datetime et = (DateTime)JSON.deserialize('"' + EndDateTime + '"', DateTime.class);
+        Datetime et;
+        
+        if(EndDateTime != null) {
+            et = (DateTime)JSON.deserialize('"' + EndDateTime + '"', DateTime.class);
+        } else {
+            et = st.addHours(1);
+        }
         List<RecordType> recList = getAttendanceManagementRecordTypeId();
 
         e.OwnerId = OwnerId;
@@ -13,6 +19,8 @@ public with sharing class AttendanceManagementController {
         e.RecordTypeId = recList[0].Id;
 
         insert e;
+
+        return e.Id;
     }
 
     @AuraEnabled
