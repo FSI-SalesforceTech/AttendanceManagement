@@ -5,11 +5,9 @@ import SetEnddateTime from '@salesforce/apex/AttendanceManagementController.SetE
 import getAttendanceReports from '@salesforce/apex/AttendanceManagementController.getAttendanceReports';
 import getBaseURL from '@salesforce/apex/AttendanceManagementController.getBaseURL';
 import Id from '@salesforce/user/Id';
-import { getFieldDisplayValue } from 'lightning/uiRecordApi';
 
 const AM9 = "T09:00:00.000+0900";
 const AM10 = "T01:00:00.000Z";
-const AM12 = "T12:00:00.000+0900";
 const PM1 = "T13:00:00.000+0900";
 const PM5 = "T17:30:00.000+0900";
 export default class AttendanceManagement extends LightningElement {
@@ -78,6 +76,7 @@ export default class AttendanceManagement extends LightningElement {
         this.input2value = `${year}-${month}-${day}` + PM5;
 
         this.input3value = `${year}-${month}-${day}` + AM10;
+        this.input10value = `${year}-${month}-${day}` + PM5;
 
         this.input4value = `${year}-${month}-${day}` + AM9;
         this.input5value = `${year}-${month}-${day}` + PM1;
@@ -134,7 +133,7 @@ export default class AttendanceManagement extends LightningElement {
                 end = String(this.input2value);
             }else if(this.b === true) {
                 start = String(this.input3value);
-                end = undefined;
+                end = String(this.input10value);
             }else if(this.d === true) {
                 start = String(this.input8value);
                 end = String(this.input9value);
@@ -259,5 +258,9 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput9change(event) {
         this.input9value = event.target.value;
+    }
+
+    handleinput10change(event) {
+        this.input10value = event.target.value;
     }
 }
