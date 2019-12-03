@@ -14,6 +14,7 @@
                         onchange={handleRadioChange}
                 ></lightning-radio-group>
                 <template if:true={a}>
+                    <lightning-input type="text" label="件名" value={subject} onchange={handleTextChange}></lightning-input>
                     <lightning-input
                         type="datetime"
                         name="input1"
@@ -30,6 +31,7 @@
                     ></lightning-input>
                 </template>
                 <template if:true={b}>
+                    <lightning-input type="text" label="件名" value={subject} onchange={handleTextChange}></lightning-input>
                     <lightning-input
                         type="datetime"
                         name="input3"
@@ -62,6 +64,7 @@
                         onchange={handleinput5change}
                     ></lightning-input>
                     <p><lightning-formatted-text value="出社" ></lightning-formatted-text></p>
+                    <lightning-input type="text" label="件名" value={subject} onchange={handleTextChange}></lightning-input>
                     <lightning-input
                         type="datetime"
                         name="input6"
@@ -78,6 +81,7 @@
                     ></lightning-input>
                 </template>
                 <template if:true={d}>
+                    <lightning-input type="text" label="件名" value={subject} onchange={handleTextChange}></lightning-input>
                     <lightning-input
                         type="datetime"
                         name="input8"
