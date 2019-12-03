@@ -23,7 +23,7 @@ export default class AttendanceManagement extends LightningElement {
     @track lastmonth = [];
     baseURL;
     calendarURL;
-    subject;
+    @track subject;
     userId = Id;
 
     @wire(getBaseURL)
@@ -110,7 +110,7 @@ export default class AttendanceManagement extends LightningElement {
                 break;
             case 'option3':
                 this.c = true;
-                this.subject = '在宅と出社';
+                this.subject = '出社';
                 break;
             case 'option4':
                 this.d = true;
@@ -168,7 +168,7 @@ export default class AttendanceManagement extends LightningElement {
             .then(event => {
                 start = String(this.input6value);
                 end = String(this.input7value);
-                CreateEvent({'OwnerId': this.userId, 'Subject': '出社', 'StartDateTime': start, 'EndDateTime': end})
+                CreateEvent({'OwnerId': this.userId, 'Subject': this.subject, 'StartDateTime': start, 'EndDateTime': end})
                     .then(event => {
                         let msg = '今日も１日頑張りましょう！';
                         this.dispatchEvent(
@@ -262,5 +262,9 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput10change(event) {
         this.input10value = event.target.value;
+    }
+
+    handleTextChange(event) {
+        this.subject = event.target.value;
     }
 }
