@@ -37,6 +37,13 @@
                         value={input3value}
                         onchange={handleinput3change}
                     ></lightning-input>
+                    <lightning-input
+                        type="datetime"
+                        name="input10"
+                        label="終了時間"
+                        value={input10value}
+                        onchange={handleinput10change}
+                    ></lightning-input>
                 </template>
                 <template if:true={c}>
                     <p><lightning-formatted-text value="在宅" ></lightning-formatted-text></p>
