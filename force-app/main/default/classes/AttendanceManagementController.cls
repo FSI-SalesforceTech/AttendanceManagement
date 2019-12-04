@@ -35,6 +35,7 @@ public with sharing class AttendanceManagementController {
         Event e = todayEvents[0];
         Datetime t = Datetime.now();
         e.EndDateTime = t;
+        e.IsRecordPressed__c = true;
 
         update e;
     }

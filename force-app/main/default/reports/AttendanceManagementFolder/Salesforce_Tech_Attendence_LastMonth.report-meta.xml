@@ -1,5 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <aggregates>
+        <calculatedFormula>DURATIONHOURS:SUM - 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA1</developerName>
+        <downGroupingContext>DUE_DATE</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>作業時間</masterLabel>
+        <scale>1</scale>
+    </aggregates>
+    <aggregates>
+        <calculatedFormula>DURATIONHOURS:SUM - 7.5 - 1</calculatedFormula>
+        <datatype>number</datatype>
+        <developerName>FORMULA2</developerName>
+        <downGroupingContext>DUE_DATE</downGroupingContext>
+        <isActive>true</isActive>
+        <isCrossBlock>false</isCrossBlock>
+        <masterLabel>差額時間</masterLabel>
+        <scale>1</scale>
+    </aggregates>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -9,16 +29,10 @@
             <axisBinding>y</axisBinding>
             <column>DURATIONHOURS</column>
         </chartSummaries>
-        <chartSummaries>
-            <aggregate>Sum</aggregate>
-            <axisBinding>y</axisBinding>
-            <column>CDF1</column>
-        </chartSummaries>
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
         <groupingColumn>ASSIGNED</groupingColumn>
-        <legendPosition>Right</legendPosition>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -31,15 +45,6 @@
         <titleColor>#000000</titleColor>
         <titleSize>18</titleSize>
     </chart>
-    <colorRanges>
-        <aggregate>Sum</aggregate>
-        <columnName>CDF1</columnName>
-        <highBreakpoint>40.0</highBreakpoint>
-        <highColor>#B50E03</highColor>
-        <lowBreakpoint>30.0</lowBreakpoint>
-        <lowColor>#006714</lowColor>
-        <midColor>#B56200</midColor>
-    </colorRanges>
     <columns>
         <field>START_DATE_TIME</field>
     </columns>
@@ -49,10 +54,6 @@
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>DURATIONHOURS</field>
-    </columns>
-    <columns>
-        <aggregateTypes>Sum</aggregateTypes>
-        <field>CDF1</field>
     </columns>
     <columns>
         <field>SUBJECT</field>
@@ -81,14 +82,6 @@
     <columns>
         <field>STATUS</field>
     </columns>
-    <customDetailFormulas>
-        <calculatedFormula>DURATIONHOURS - 7.5 - 1</calculatedFormula>
-        <dataType>Double</dataType>
-        <description>標準時間（7.5H）との差額の時間です。休憩時間は１時間で切ってるので、目安だと思ってください。</description>
-        <developerName>CDF1</developerName>
-        <label>差額時間</label>
-        <scale>1</scale>
-    </customDetailFormulas>
     <description>先月のSalesforce Tech室の勤怠</description>
     <filter>
         <criteriaItems>
@@ -99,21 +92,6 @@
         </criteriaItems>
     </filter>
     <format>Summary</format>
-    <formattingRules>
-        <aggregate>Sum</aggregate>
-        <columnName>CDF1</columnName>
-        <values>
-            <backgroundColor>#006714</backgroundColor>
-            <rangeUpperBound>30.0</rangeUpperBound>
-        </values>
-        <values>
-            <backgroundColor>#B56200</backgroundColor>
-            <rangeUpperBound>40.0</rangeUpperBound>
-        </values>
-        <values>
-            <backgroundColor>#B50E03</backgroundColor>
-        </values>
-    </formattingRules>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>ASSIGNED</field>

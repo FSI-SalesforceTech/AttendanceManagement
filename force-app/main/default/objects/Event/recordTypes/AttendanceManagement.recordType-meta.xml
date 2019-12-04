@@ -4,21 +4,6 @@
     <active>true</active>
     <label>勤怠連絡</label>
     <picklistValues>
-        <picklist>AttendancePlace__c</picklist>
-        <values>
-            <fullName>その他</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>秋葉原</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>飯田橋</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Subject</picklist>
         <values>
             <fullName>%E3%80%90移動%E3%80%91</fullName>
