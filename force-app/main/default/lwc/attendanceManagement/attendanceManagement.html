@@ -2,7 +2,7 @@
     <lightning-card title="勤怠連絡" icon-name="utility:date_time">
         <lightning-layout>
             <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                <div class="custom-box slds-box slds-var-p-around_medium slds-text-align_center">
                     <lightning-formatted-text value="作業開始"></lightning-formatted-text>
                 </div>
                 <lightning-radio-group name="radioGroup"
@@ -100,15 +100,17 @@
                 <br>
                 <center>
                     <template if:true={isSelected}>
-                        <lightning-button variant="brand" label="登録" title="Primary action" onclick={registEvent} class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button variant="brand" label="登録" title="行動に登録します。" onclick={registEvent} class="slds-var-m-left_x-small"></lightning-button>
+                        <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
                     </template>
                     <template if:false={isSelected}>
-                        <lightning-button variant="brand" label="登録" title="Primary action" disabled class="slds-m-left_x-small"></lightning-button>
+                        <lightning-button variant="brand" label="登録" title="行動に登録します。" disabled class="slds-var-m-left_x-small"></lightning-button>
+                        <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
                     </template>
                 </center>
             </lightning-layout-item>
             <lightning-layout-item flexibility="auto" padding="around-small">
-                <div class="custom-box slds-box slds-p-around_medium slds-text-align_center">
+                <div class="custom-box slds-box slds-var-p-around_medium slds-text-align_center">
                     <lightning-formatted-text value="作業終了"></lightning-formatted-text>
                 </div>
                 <br>
@@ -122,8 +124,8 @@
                 </center>
             </lightning-layout-item>
         </lightning-layout>
-        <div class="slds-p-around_none slds-m-top_x-small slds-m-bottom_medium slds-m-horizontal_none">
-            <div class="slds-box slds-p-around_none slds-p-around_medium slds-text-align_center">
+        <div class="slds-p-around_none slds-var-m-top_x-small slds-var-m-bottom_medium slds-m-horizontal_none">
+            <div class="slds-box slds-p-around_none slds-var-p-around_medium slds-text-align_center">
                 <lightning-formatted-url value={calendarURL} label="カレンダーを表示"></lightning-formatted-url>
             </div>
             <div class="slds-p-around_none">
