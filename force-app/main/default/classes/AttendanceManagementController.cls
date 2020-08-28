@@ -32,12 +32,14 @@ public with sharing class AttendanceManagementController {
     public static void SetEnddateTime(String id) {
         List<RecordType> recList = getAttendanceManagementRecordTypeId();
         List<Event> todayEvents = [SELECT Id, Subject, StartDateTime, EndDateTime FROM Event WHERE OwnerId = :id AND StartDateTime = TODAY AND EndDateTime < TOMORROW AND RecordTypeId = :recList[0].Id ORDER BY EndDateTime DESC];
-        Event e = todayEvents[0];
-        Datetime t = Datetime.now();
-        e.EndDateTime = t;
-        e.IsRecordPressed__c = true;
+        if(!todayEvents.isEmpty()) {
+            Event e = todayEvents[0];
+            Datetime t = Datetime.now();
+            e.EndDateTime = t;
+            e.IsRecordPressed__c = true;
 
-        update e;
+            update e;
+        }
     }
 
     @AuraEnabled(cacheable=true)
