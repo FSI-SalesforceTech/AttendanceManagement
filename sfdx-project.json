@@ -5,7 +5,7 @@
             "default": true,
             "package": "AttendanceManagement",
             "versionName": "ver 1.0",
-            "versionNumber": "1.0.6.NEXT"
+            "versionNumber": "1.0.7.NEXT"
         }
     ],
     "namespace": "",
@@ -23,6 +23,7 @@
         "AttendanceManagement@1.0.4-3": "04t10000000ea4xAAA",
         "AttendanceManagement@1.0.5-1": "04t10000000ea52AAA",
         "AttendanceManagement@1.0.6-1": "04t10000000ea57AAA",
-        "AttendanceManagement@1.0.6-2": "04t10000000ea5CAAQ"
+        "AttendanceManagement@1.0.6-2": "04t10000000ea5CAAQ",
+        "AttendanceManagement@1.0.7-1": "04t10000000PWaFAAW"
     }
 }

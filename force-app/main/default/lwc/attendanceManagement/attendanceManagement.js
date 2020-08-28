@@ -10,6 +10,9 @@ const AM9 = "T09:00:00.000+0900";
 const AM10 = "T01:00:00.000Z";
 const PM1 = "T13:00:00.000+0900";
 const PM5 = "T17:30:00.000+0900";
+
+const BASE_URL = 'http://www.google.com/calendar/event?action=TEMPLATE';
+
 export default class AttendanceManagement extends LightningElement {
     @track activeSections = ['A'];
     @track isSelected = false;
@@ -25,6 +28,7 @@ export default class AttendanceManagement extends LightningElement {
     calendarURL;
     @track subject;
     userId = Id;
+    @track googleurl = BASE_URL;
 
     @wire(getBaseURL)
     wiregetBaseURL({error, data}){
@@ -222,6 +226,59 @@ export default class AttendanceManagement extends LightningElement {
                     }),
                 );
             });
+    }
+
+    handleClickGoogleCalendar() {
+        let subj;
+        let start;
+        let end;
+
+        if(this.a === true || this.b === true || this.c === true || this.d === true ){
+            subj = this.subject;
+            if(this.a === true) {
+                start = String(this.input1value);
+                end = String(this.input2value);
+            }else if(this.b === true) {
+                start = String(this.input3value);
+                end = String(this.input10value);
+            }else if(this.d === true) {
+                start = String(this.input8value);
+                end = String(this.input9value);
+            } else if(this.c === true) {
+                start = String(this.input4value);
+                end = String(this.input5value);
+            }
+            
+            let param = BASE_URL;
+            
+            param += '&dates=' + String(start).replace(/-/gi, '').replace(/:/gi, '').replace('.000+0900', '') + '/' + String(end).replace(/-/gi, '').replace(/:/gi, '').replace('.000+0900', '');
+            if(this.title !== undefined){
+                param += '&text=' + this.subject;
+            }
+            if(this.location !== undefined){
+                //ちょっと保留
+            }
+            console.log(param);
+            window.open(param);
+        }
+    }
+
+    generateURL(){
+        let param = BASE_URL;
+        
+        param += '&dates=' + String(this.nowtime).replace(/-/gi, '').replace(/:/gi, '').replace('+0900', '') + '/' + String(this.endtime).replace(/-/gi, '').replace(/:/gi, '').replace('+0900', '');
+
+        if(this.title !== undefined){
+            param += '&text=' + this.title;
+        }
+        if(this.detail !== undefined){
+            param += '&details=' + this.detail;
+        }
+        if(this.location !== undefined){
+            //ちょっと保留
+        }
+
+        this.googleurl = param;
     }
 
     handleinput1change(event) {
