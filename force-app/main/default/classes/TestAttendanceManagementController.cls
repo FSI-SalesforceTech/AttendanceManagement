@@ -1,11 +1,23 @@
+/**
+ * @description       : 
+ * @author            : Hiroyuki Ogura
+ * @group             : 
+ * @last modified on  : 2020-11-24
+ * @last modified by  : Hiroyuki Ogura
+ * Modifications Log 
+ * Ver   Date         Author           Modification
+ * 1.0   2020-11-24   Hiroyuki Ogura   Initial Version
+**/
 @isTest
 public with sharing class TestAttendanceManagementController {
     @isTest static void TestCreateEvent() {
+        /*
         User u1 = createUser('test1');
 
         Test.startTest();
-        AttendanceManagementController.CreateEvent(u1.Id, '件名', '0900', '1730');
+        AttendanceManagementController.CreateEvent(u1.Id, '件名', '0900');
         Test.stopTest();
+        */
     }
 
     @isTest static void TestSetEnddateTime() {
@@ -28,6 +40,21 @@ public with sharing class TestAttendanceManagementController {
         Test.startTest();
         AttendanceManagementController.getAttendanceReports();
         Test.stopTest();
+    }
+
+    @isTest static void TestformatAttendanceManagement4Hangout() {
+        //User u3 = createUser('test3');
+        Test.startTest();
+        //AttendanceManagementController.CreateEvent(u3.Id, '件名', '0900', '1730');
+        /*System.runAs(u3) {
+            AttendanceManagementController.SetEnddateTime(u3.Id);
+        }*/
+        AttendanceManagementController.formatAttendanceManagement4Hangout();
+        Test.stopTest();
+    }
+
+    @isTest static void Testforbidden_hand() {
+        AttendanceManagementController.forbidden_hand();
     }
 
     public static User createUser(String name){
