@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PostNotation__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>英語での役職の表記のことです。</inlineHelpText>
+    <label>ポスト表記</label>
+    <length>255</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

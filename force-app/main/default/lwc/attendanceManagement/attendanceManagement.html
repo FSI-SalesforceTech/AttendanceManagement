@@ -98,30 +98,32 @@
                     ></lightning-input>
                 </template>
                 <br>
-                <center>
+                <div class="slds-align_absolute-center">
                     <template if:true={isSelected}>
                         <lightning-button variant="brand" label="登録" title="行動に登録します。" onclick={registEvent} class="slds-var-m-left_x-small"></lightning-button>
                         <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
+                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout"></lightning-button>
                     </template>
                     <template if:false={isSelected}>
                         <lightning-button variant="brand" label="登録" title="行動に登録します。" disabled class="slds-var-m-left_x-small"></lightning-button>
                         <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
+                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout"></lightning-button>
                     </template>
-                </center>
+                </div>
             </lightning-layout-item>
             <lightning-layout-item flexibility="auto" padding="around-small">
                 <div class="custom-box slds-box slds-var-p-around_medium slds-text-align_center">
                     <lightning-formatted-text value="作業終了"></lightning-formatted-text>
                 </div>
                 <br>
-                <center>
+                <div class="slds-align_absolute-center">
                     <lightning-button
                         label="記録"
                         variant="brand"
                         title="今日の活動の終了日時を現在時刻に設定します。複数ある場合は、開始時間の最も遅い活動の終了時間にセットします。"
                         onclick={EndOfBusiness}
                     ></lightning-button>
-                </center>
+                </div>
             </lightning-layout-item>
         </lightning-layout>
         <div class="slds-p-around_none slds-var-m-top_x-small slds-var-m-bottom_medium slds-m-horizontal_none">

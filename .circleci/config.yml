@@ -46,7 +46,7 @@ jobs:
       - run:
           name: Create Package
           command: |
-            PACKAGEVERSION="$(sfdx force:package:version:create --package $PACKAGENAME --installationkeybypass --wait 10 --json --targetdevhubusername bunai-crm | jq '.result.SubscriberPackageVersionId' | tr -d '"')"
+            PACKAGEVERSION="$(sfdx force:package:version:create --package $PACKAGENAME -c --installationkeybypass --wait 10 --json --targetdevhubusername bunai-crm | jq '.result.SubscriberPackageVersionId' | tr -d '"')"
             echo 'PackageVersionId - ' ${PACKAGEVERSION}
             # Store PackageVersionId to be used in future step
             echo $PACKAGEVERSION > /tmp/packageversion.txt
@@ -58,7 +58,7 @@ jobs:
           command: |
             #Get PackageVersionId
             PackageVersionId=$(</tmp/packageversion.txt)
-            
+
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               sfdx force:package:version:promote -n -p $PackageVersionId -v bunai-crm
               sfdx force:package:install --package $PackageVersionId --wait 10 --targetusername bunai-crm

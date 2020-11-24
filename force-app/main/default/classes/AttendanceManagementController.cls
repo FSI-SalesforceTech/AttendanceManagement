@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : Hiroyuki Ogura
+ * @group             : 
+ * @last modified on  : 2020-11-24
+ * @last modified by  : Hiroyuki Ogura
+ * Modifications Log 
+ * Ver   Date         Author           Modification
+ * 1.0   2020-11-24   Hiroyuki Ogura   Initial Version
+**/
 public with sharing class AttendanceManagementController {
     @AuraEnabled
     public static String CreateEvent(Id OwnerId, String Subject, String StartDateTime, String EndDateTime) {
@@ -50,5 +60,49 @@ public with sharing class AttendanceManagementController {
     @AuraEnabled(cacheable=true)
     public static String getBaseURL(){
         return URL.getSalesforceBaseUrl().getHost() + '/';
+    }
+
+    @AuraEnabled(cacheable=true)
+    public static String formatAttendanceManagement4Hangout(){
+        final String CRLF = '\r\n';
+        String result = '';
+        List<String> Zaitaku = new List<String>();
+        List<String> Akihabara = new List<String>();
+        List<String> Kyuka = new List<String>();
+        List <User> UserList = [SELECT Id, FirstName, PostNotation__c FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp')];
+
+        for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
+            for(User u : UserList) {
+                if(e.OwnerId == u.Id) {
+                    if( e.Subject == '在宅') {
+                        Zaitaku.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                    } else if(e.Subject == '出社') {
+                        Akihabara.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                    }else if(e.Subject == '休暇') {
+                        Kyuka.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                    }
+                }
+            }
+        }
+        result = '> 阿部 PK' + CRLF + 'Salesforce チーム作業開始します。' + CRLF;
+        if(Zaitaku.size() > 0) {
+            result += CRLF + '【在宅勤務】';
+            for( String s : Zaitaku) {
+                result += CRLF + s;
+            }
+        }
+        if(Akihabara.size() > 0) {
+            result += CRLF + CRLF + '【秋葉原オフィス】';
+            for( String s : Akihabara) {
+                result += CRLF + s;
+            }
+        }
+        if(Kyuka.size() > 0) {
+            result += CRLF + CRLF + '【休暇】';
+            for( String s : Akihabara) {
+                result += CRLF + s;
+            }
+        }
+        return result;
     }
 }

@@ -4,6 +4,7 @@ import CreateEvent from'@salesforce/apex/AttendanceManagementController.CreateEv
 import SetEnddateTime from '@salesforce/apex/AttendanceManagementController.SetEnddateTime';
 import getAttendanceReports from '@salesforce/apex/AttendanceManagementController.getAttendanceReports';
 import getBaseURL from '@salesforce/apex/AttendanceManagementController.getBaseURL';
+import formatAttendanceManagement4Hangout from '@salesforce/apex/AttendanceManagementController.formatAttendanceManagement4Hangout';
 import Id from '@salesforce/user/Id';
 
 const AM9 = "T09:00:00.000+0900";
@@ -59,6 +60,30 @@ export default class AttendanceManagement extends LightningElement {
                 }),
             );
         }
+    }
+
+    handleClickFormatHangout() {
+        formatAttendanceManagement4Hangout()
+            .then(result => {
+                var button = this.template.querySelector(".hangout");
+                var temp = document.createElement('textarea');
+
+                temp.value = result;
+                temp.selectionStart = 0;
+                temp.selectionEnd = temp.value.length;
+
+                var s = temp.style;
+                s.position = 'fixed';
+                s.left = '-100%';
+
+                document.body.appendChild(temp);
+                temp.focus();
+                var result = document.execCommand('copy');
+                temp.blur();
+                document.body.removeChild(temp);
+                button.label = 'copied!';
+            }
+        );
     }
 
     get options() {
