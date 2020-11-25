@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Hiroyuki Ogura
  * @group             : 
- * @last modified on  : 2020-11-24
+ * @last modified on  : 2020-11-25
  * @last modified by  : Hiroyuki Ogura
  * Modifications Log 
  * Ver   Date         Author           Modification
@@ -69,17 +69,17 @@ public with sharing class AttendanceManagementController {
         List<String> Zaitaku = new List<String>();
         List<String> Akihabara = new List<String>();
         List<String> Kyuka = new List<String>();
-        List <User> UserList = [SELECT Id, FirstName, PostNotation__c FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp')];
-
-        for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
-            for(User u : UserList) {
+        List <User> UserList = [SELECT Id, LastName, PostNotation__c FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp') AND isActive = true ORDER BY PostNotation__c ASC];
+        
+        for(User u : UserList) {
+            for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
                 if(e.OwnerId == u.Id) {
-                    if( e.Subject == '在宅') {
-                        Zaitaku.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                    if( e.Subject == '在宅（終日）') {
+                        Zaitaku.add(u.LastName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
                     } else if(e.Subject == '出社') {
-                        Akihabara.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                        Akihabara.add(u.LastName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
                     }else if(e.Subject == '休暇') {
-                        Kyuka.add(u.FirstName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
+                        Kyuka.add(u.LastName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
                     }
                 }
             }
