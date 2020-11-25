@@ -69,9 +69,11 @@ public with sharing class AttendanceManagementController {
         List<String> Zaitaku = new List<String>();
         List<String> Akihabara = new List<String>();
         List<String> Kyuka = new List<String>();
-        List <User> UserList = [SELECT Id, LastName, PostNotation__c FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp') AND isActive = true ORDER BY PostNotation__c ASC];
-        
-        for(User u : UserList) {
+        List <User> UserList = [SELECT Id, LastName, PostNotation__c, email FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp','zhanxin@fsi.co.jp') AND isActive = true ORDER BY PostNotation__c ASC];
+		for(User u : UserList) {
+            if(u.email == 'zhanxin@fsi.co.jp') {
+                Zaitaku.add(u.LastName + ' ' + u.PostNotation__c + ' : 09:00 ～ 17:30' );
+            }
             for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
                 if(e.OwnerId == u.Id) {
                     if( e.Subject == '在宅（終日）') {
