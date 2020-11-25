@@ -76,7 +76,7 @@ public with sharing class AttendanceManagementController {
             }
             for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
                 if(e.OwnerId == u.Id) {
-                    if( e.Subject == '在宅（終日）') {
+                    if( e.Subject == '在宅（終日）' || e.Subject == '在宅') {
                         Zaitaku.add(u.LastName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
                     } else if(e.Subject == '出社') {
                         Akihabara.add(u.LastName + ' ' + u.PostNotation__c + ' : ' + String.valueOf(e.StartDateTime.format('HH:mm')) + ' ～ ' + String.valueOf(e.EndDateTime.format('HH:mm')));
