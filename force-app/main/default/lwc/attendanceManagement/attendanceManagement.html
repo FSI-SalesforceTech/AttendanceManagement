@@ -102,12 +102,12 @@
                     <template if:true={isSelected}>
                         <lightning-button variant="brand" label="登録" title="行動に登録します。" onclick={registEvent} class="slds-var-m-left_x-small"></lightning-button>
                         <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
-                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout"></lightning-button>
+                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout slds-var-m-left_x-small"></lightning-button>
                     </template>
                     <template if:false={isSelected}>
                         <lightning-button variant="brand" label="登録" title="行動に登録します。" disabled class="slds-var-m-left_x-small"></lightning-button>
                         <lightning-button variant="brand-outline" label="Google カレンダーに登録" title="Google カレンダーへの登録画面を開きます。" onclick={handleClickGoogleCalendar} class="slds-var-m-left_x-small"></lightning-button>
-                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout"></lightning-button>
+                        <lightning-button variant="success" label="HangOut 貼付整形" icon-name="utility:copy_to_clipboard" title="阿部さんが「HangOut じゃなきゃ勤怠連絡いやだ！」ってダダこねたので機能追加しました。HangOut に貼り付ける形で整形した文字列をクリップボードにコピーします。" onclick={handleClickFormatHangout} class="hangout slds-var-m-left_x-small"></lightning-button>
                     </template>
                 </div>
             </lightning-layout-item>
