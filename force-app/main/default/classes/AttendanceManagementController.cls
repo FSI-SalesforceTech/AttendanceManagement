@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Hiroyuki Ogura
  * @group             : 
- * @last modified on  : 2020-11-25
+ * @last modified on  : 2020-11-26
  * @last modified by  : Hiroyuki Ogura
  * Modifications Log 
  * Ver   Date         Author           Modification
@@ -101,7 +101,7 @@ public with sharing class AttendanceManagementController {
         }
         if(Kyuka.size() > 0) {
             result += CRLF + CRLF + '【休暇】';
-            for( String s : Akihabara) {
+            for( String s : Kyuka) {
                 result += CRLF + s;
             }
         }
