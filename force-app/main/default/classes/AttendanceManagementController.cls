@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Hiroyuki Ogura
  * @group             : 
- * @last modified on  : 2020-11-26
+ * @last modified on  : 2020-12-04
  * @last modified by  : Hiroyuki Ogura
  * Modifications Log 
  * Ver   Date         Author           Modification
@@ -72,7 +72,7 @@ public with sharing class AttendanceManagementController {
         List <User> UserList = [SELECT Id, LastName, PostNotation__c, email FROM User WHERE email IN ('ogurah@fsi.co.jp', 'kykawagu@fsi.co.jp', 'yokasiha@fsi.co.jp','kakimura@fsi.co.jp','matsuzas@fsi.co.jp','rinakita@fsi.co.jp','zhanxin@fsi.co.jp') AND isActive = true ORDER BY PostNotation__c ASC];
 		for(User u : UserList) {
             if(u.email == 'zhanxin@fsi.co.jp') {
-                Zaitaku.add(u.LastName + ' ' + u.PostNotation__c + ' : 09:00 ～ 17:30' );
+                Zaitaku.add(u.LastName + ' ' + u.PostNotation__c + ' : 09:30 ～ 20:30（私用外出 1H）' );
             }
             for (Event e : [SELECT Id, Subject, StartDateTime, EndDateTime, OWnerId FROM Event WHERE StartDateTime = TODAY AND RecordType.Name = '勤怠連絡']) {
                 if(e.OwnerId == u.Id) {
