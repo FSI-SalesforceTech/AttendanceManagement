@@ -308,6 +308,7 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput1change(event) {
         this.input1value = event.target.value;
+        this.input2value = this.input1value;
     }
 
     handleinput2change(event) {
@@ -316,6 +317,7 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput3change(event) {
         this.input3value = event.target.value;
+        this.input4value = this.input3value;
     }
 
     handleinput4change(event) {
@@ -324,6 +326,7 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput5change(event) {
         this.input5value = event.target.value;
+        this.input6value = this.input5value;
     }
 
     handleinput6change(event) {
@@ -332,6 +335,7 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput7change(event) {
         this.input7value = event.target.value;
+        this.input8value = this.input7value;
     }
 
     handleinput8change(event) {
@@ -340,6 +344,7 @@ export default class AttendanceManagement extends LightningElement {
 
     handleinput9change(event) {
         this.input9value = event.target.value;
+        this.input10value = this.input9value;
     }
 
     handleinput10change(event) {
