@@ -88,7 +88,7 @@ export default class AttendanceManagement extends LightningElement {
 
     get options() {
         return [
-            { label: '在宅（終日）', value: 'option1' },
+            { label: '在宅', value: 'option1' },
             { label: '出社', value: 'option2' },
             { label: '在宅と出社', value: 'option3' },
             { label: '休暇', value: 'option4' },
