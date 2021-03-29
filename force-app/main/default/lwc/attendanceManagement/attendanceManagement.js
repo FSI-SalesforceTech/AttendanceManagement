@@ -17,7 +17,7 @@ const BASE_URL = 'http://www.google.com/calendar/event?action=TEMPLATE';
 export default class AttendanceManagement extends LightningElement {
     @track activeSections = ['A'];
     @track isSelected = false;
-    @track a = false;
+    @track a = true;
     @track b = false;
     @track c = false;
     @track d = false;
